@@ -23,5 +23,6 @@ Third, as you see clearly, all are different size, <br />
 Neither dwarf nor giant holds death in their insides; <br />
 Fourth, the second left and the second on the right <br />
 Are twins once you taste them, though different at first sight."
-                                        
-                                          - 
+
+To execute the code
+`$ dlv riddle7bottles.dlv`
