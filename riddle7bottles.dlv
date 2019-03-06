@@ -1,0 +1,234 @@
+% ---------------------------------------------------------------------------- %
+% Project: Arficial Intelligence
+% Itzel Tlelo Coyotecatl    
+% ---------------------------------------------------------------------------- %
+
+% Riddle of the 7 bottles (Harry Potter and the Philosopher´s Stone)
+% Danger lies before you, while safety lies behind,
+% Two of us will help you, whichever you would find,
+% One among us seven will let you move ahead,
+% Another will transport the drinker back instead,
+
+% Two among our number hold only nettle-wine,
+% Three of us are killers, waiting hidden in line
+
+% Choose, unless you wish to stay here forevermore
+% To help you in your choice, we give you these clues four:
+
+% First, however slyly the poison tries to hide
+% You will always find some on nettle wine´s left side
+
+% Second, different are those who stand at either end
+% But if you would move onward, neither is your friend;
+
+% Third as you see clearly, all are different size
+% Neither dwarf nor giant hold death in their insides;
+
+% Fourth, the second left and the second on the right
+% Are twins once you taste them, though different at first sight.
+
+% Objective: found the bottle that allow us to move forward
+
+% ---------------------------------------------------------------------------- %
+% ----------------- facts ---------------------------------------------------- %
+% ---------------------------------------------------------------------------- %
+
+content(forward).
+content(backward).
+content(wine). 
+content(poison).
+number(1).
+number(2).
+number(3). % smallest
+number(4).
+number(5).
+number(6). % largest
+number(7).
+
+% The bottle with the number 'x' contains 'y'
+
+% Different are those who stand at either end, but if you would move onward, neither is your friend
+-bottle(1, forward).
+-bottle(7, forward).
+
+% Neither dwarf (bottle 3) nor giant (bottle 6) hold death in their insides
+-bottle(3, poison).
+-bottle(6, poison).
+
+% You will always find some on nettle wine´s left side
+-bottle(1,wine).
+-bottle(7,poison).
+
+% Objective: found the bottle that allow us to move forward
+
+% ---------------------------------------------------------------------------- %
+% -------------------------- rules ------------------------------------------- %
+% ---------------------------------------------------------------------------- %
+% You will always find some on nettle wine´s left side
+bottle(1,poison):- bottle(2,wine).
+bottle(2,poison):- bottle(3,wine).
+bottle(3,poison):- bottle(4,wine).
+bottle(4,poison):- bottle(5,wine).
+bottle(5,poison):- bottle(6,wine).
+bottle(6,poison):- bottle(7,wine).
+-bottle(1,poison):- -bottle(2,wine).
+-bottle(2,poison):- -bottle(3,wine).
+-bottle(3,poison):- -bottle(4,wine).
+-bottle(4,poison):- -bottle(5,wine).
+-bottle(5,poison):- -bottle(6,wine).
+-bottle(6,poison):- -bottle(7,wine).
+bottle(2,wine):- bottle(1,poison).
+bottle(3,wine):- bottle(2,poison).
+bottle(4,wine):- bottle(3,poison).
+bottle(5,wine):- bottle(4,poison).
+bottle(6,wine):- bottle(5,poison).
+bottle(7,wine):- bottle(6,poison).
+-bottle(2,wine):- -bottle(1,poison).
+-bottle(3,wine):- -bottle(2,poison).
+-bottle(4,wine):- -bottle(3,poison).
+-bottle(5,wine):- -bottle(4,poison).
+-bottle(6,wine):- -bottle(5,poison).
+-bottle(7,wine):- -bottle(6,poison).
+
+% Different are those who stand at either end
+-bottle(7,poison):- bottle(1,poison).
+-bottle(7,wine):- bottle(1,wine).
+-bottle(7,forward):- bottle(1,forward).
+-bottle(7,backward):- bottle(1,backward).
+-bottle(1,poison):- bottle(7,poison).
+-bottle(1,wine):- bottle(7,wine).
+-bottle(1,forward):- bottle(7,forward).
+-bottle(1,backward):- bottle(7,backward).
+
+% The second left and the second on the right are twins
+-bottle(2,poison):- -bottle(6,poison).
+-bottle(2,wine):- -bottle(6,wine).
+-bottle(2,forward):- -bottle(6,forward).
+-bottle(2,backward):- -bottle(6,backward).
+bottle(2,poison):- bottle(6,poison).
+bottle(2,wine):- bottle(6,wine).
+bottle(2,forward):- bottle(6,forward).
+bottle(2,backward):- bottle(6,backward).
+-bottle(6,poison):- -bottle(2,poison).
+-bottle(6,wine):- -bottle(2,wine).
+-bottle(6,forward):- -bottle(2,forward).
+-bottle(6,backward):- -bottle(2,backward).
+bottle(6,poison):- bottle(2,poison).
+bottle(6,wine):- bottle(2,wine).
+bottle(6,forward):- bottle(2,forward).
+bottle(6,backward):- bottle(2,backward).
+
+% One among us seven will let you move ahead --------------------------------- %
+-bottle(2,forward):- bottle(1,forward). -bottle(3,forward):- bottle(1,forward).
+-bottle(4,forward):- bottle(1,forward). -bottle(5,forward):- bottle(1,forward).
+-bottle(6,forward):- bottle(1,forward). -bottle(7,forward):- bottle(1,forward). 
+
+-bottle(1,forward):- bottle(2,forward). -bottle(3,forward):- bottle(2,forward).
+-bottle(4,forward):- bottle(2,forward). -bottle(5,forward):- bottle(2,forward).
+-bottle(6,forward):- bottle(2,forward). -bottle(7,forward):- bottle(2,forward). 
+
+-bottle(2,forward):- bottle(3,forward). -bottle(1,forward):- bottle(3,forward).
+-bottle(4,forward):- bottle(3,forward). -bottle(5,forward):- bottle(3,forward).
+-bottle(6,forward):- bottle(3,forward). -bottle(7,forward):- bottle(3,forward). 
+
+-bottle(2,forward):- bottle(4,forward). -bottle(3,forward):- bottle(4,forward).
+-bottle(1,forward):- bottle(4,forward). -bottle(5,forward):- bottle(4,forward).
+-bottle(6,forward):- bottle(4,forward). -bottle(7,forward):- bottle(4,forward). 
+
+-bottle(2,forward):- bottle(5,forward). -bottle(3,forward):- bottle(5,forward).
+-bottle(4,forward):- bottle(5,forward). -bottle(1,forward):- bottle(5,forward).
+-bottle(6,forward):- bottle(5,forward). -bottle(7,forward):- bottle(5,forward). 
+
+-bottle(2,forward):- bottle(6,forward). -bottle(3,forward):- bottle(6,forward).
+-bottle(4,forward):- bottle(6,forward). -bottle(5,forward):- bottle(6,forward).
+-bottle(1,forward):- bottle(6,forward). -bottle(7,forward):- bottle(6,forward). 
+
+-bottle(2,forward):- bottle(7,forward). -bottle(3,forward):- bottle(7,forward).
+-bottle(4,forward):- bottle(7,forward). -bottle(5,forward):- bottle(7,forward).
+-bottle(6,forward):- bottle(7,forward). -bottle(1,forward):- bottle(7,forward). 
+
+% Another will transport the drinker back instead ---------------------------- %
+-bottle(2,backward):- bottle(1,backward). -bottle(3,backward):- bottle(1,backward).
+-bottle(4,backward):- bottle(1,backward). -bottle(5,backward):- bottle(1,backward).
+-bottle(6,backward):- bottle(1,backward). -bottle(7,backward):- bottle(1,backward). 
+
+-bottle(1,backward):- bottle(2,backward). -bottle(3,backward):- bottle(2,backward).
+-bottle(4,backward):- bottle(2,backward). -bottle(5,backward):- bottle(2,backward).
+-bottle(6,backward):- bottle(2,backward). -bottle(7,backward):- bottle(2,backward). 
+
+-bottle(2,backward):- bottle(3,backward). -bottle(1,backward):- bottle(3,backward).
+-bottle(4,backward):- bottle(3,backward). -bottle(5,backward):- bottle(3,backward).
+-bottle(6,backward):- bottle(3,backward). -bottle(7,backward):- bottle(3,backward). 
+
+-bottle(2,backward):- bottle(4,backward). -bottle(3,backward):- bottle(4,backward).
+-bottle(1,backward):- bottle(4,backward). -bottle(5,backward):- bottle(4,backward).
+-bottle(6,backward):- bottle(4,backward). -bottle(7,backward):- bottle(4,backward). 
+
+-bottle(2,backward):- bottle(5,backward). -bottle(3,backward):- bottle(5,backward). 
+-bottle(4,backward):- bottle(5,backward). -bottle(1,backward):- bottle(5,backward).
+-bottle(6,backward):- bottle(5,backward). -bottle(7,backward):- bottle(5,backward). 
+
+-bottle(2,backward):- bottle(6,backward). -bottle(3,backward):- bottle(6,backward).
+-bottle(4,backward):- bottle(6,backward). -bottle(5,backward):- bottle(6,backward).
+-bottle(1,backward):- bottle(6,backward). -bottle(7,backward):- bottle(6,backward). 
+
+-bottle(2,backward):- bottle(7,backward). -bottle(3,backward):- bottle(7,backward).
+-bottle(4,backward):- bottle(7,backward). -bottle(5,backward):- bottle(7,backward).
+-bottle(6,backward):- bottle(7,backward). -bottle(1,backward):- bottle(7,backward). 
+
+% What contains each bottle -------------------------------------------------- %
+bottle(1,poison):- -bottle(1,wine), -bottle(1,forward), -bottle(1,backward).
+bottle(1,wine):- -bottle(1,forward), -bottle(1,backward), -bottle(1,poison). 
+bottle(1,forward):- -bottle(1,backward), -bottle(1,poison), -bottle(1,wine).
+bottle(1,backward):- -bottle(1,poison), -bottle(1,wine), -bottle(1,forward).
+
+bottle(2,poison):- -bottle(2,wine), -bottle(2,forward), -bottle(2,backward).
+bottle(2,wine):- -bottle(2,forward), -bottle(2,backward), -bottle(2,poison). 
+bottle(2,forward):- -bottle(2,backward), -bottle(2,poison), -bottle(2,wine).
+bottle(2,backward):- -bottle(2,poison), -bottle(2,wine), -bottle(2,forward).
+
+bottle(3,poison):- -bottle(3,wine), -bottle(3,forward), -bottle(3,backward).
+bottle(3,wine):- -bottle(3,forward), -bottle(3,backward), -bottle(3,poison). 
+bottle(3,forward):- -bottle(3,backward), -bottle(3,poison), -bottle(3,wine).
+bottle(3,backward):- -bottle(3,poison), -bottle(3,wine), -bottle(3,forward).
+
+bottle(4,poison):- -bottle(4,wine), -bottle(4,forward), -bottle(4,backward).
+bottle(4,wine):- -bottle(4,forward), -bottle(4,backward), -bottle(4,poison). 
+bottle(4,forward):- -bottle(4,backward), -bottle(4,poison), -bottle(4,wine).
+bottle(4,backward):- -bottle(4,poison), -bottle(4,wine), -bottle(4,forward).
+
+bottle(5,poison):- -bottle(5,wine), -bottle(5,forward), -bottle(5,backward).
+bottle(5,wine):- -bottle(5,forward), -bottle(5,backward), -bottle(5,poison). 
+bottle(5,forward):- -bottle(5,backward), -bottle(5,poison), -bottle(5,wine).
+bottle(5,backward):- -bottle(5,poison), -bottle(5,wine), -bottle(5,forward).
+
+bottle(6,poison):- -bottle(6,wine), -bottle(6,forward), -bottle(6,backward).
+bottle(6,wine):- -bottle(6,forward), -bottle(6,backward), -bottle(6,poison). 
+bottle(6,forward):- -bottle(6,backward), -bottle(6,poison), -bottle(6,wine).
+bottle(6,backward):- -bottle(6,poison), -bottle(6,wine), -bottle(6,forward).
+
+bottle(7,poison):- -bottle(7,wine), -bottle(7,forward), -bottle(7,backward).
+bottle(7,wine):- -bottle(7,forward), -bottle(7,backward), -bottle(7,poison). 
+bottle(7,forward):- -bottle(7,backward), -bottle(7,poison), -bottle(7,wine).
+bottle(7,backward):- -bottle(7,poison), -bottle(7,wine), -bottle(7,forward).
+
+
+% ---------------------------------------------------------------------------- %
+% --------- Decide which bottle should I choose ------------------------------ %
+% ---------------------------------------------------------------------------- %
+
+DefinetlyNo(NUMBER, CONTENT):-
+  bottle(NUMBER, CONTENT),
+  CONTENT = poison.
+
+ItsSecureButNo(NUMBER, CONTENT):-
+  bottle(NUMBER, CONTENT),
+  CONTENT = wine.
+
+ForBackward(NUMBER, CONTENT):-
+  bottle(NUMBER, CONTENT),
+  CONTENT = backward.
+
+ChooseThisToMoveFORWARD(NUMBER, CONTENT):-
+  bottle(NUMBER, CONTENT),
+  CONTENT = forward.
