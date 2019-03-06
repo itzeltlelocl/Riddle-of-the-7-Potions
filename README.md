@@ -1,7 +1,9 @@
 # Riddle-of-the-7-Potions
-> The riddle can be found on the book *"Harry Potter and the Philosopher’s Stone"* from J.K. Rowling
+> This [DLV](http://www.dlvsystem.com/) program tries to find the solution. 
+To execute the code
+`$ dlv riddle7bottles.dlv`
 
-> This [DLV](http://www.dlvsystem.com/) program tries to find the solution 
+> The riddle can be found on the book *"Harry Potter and the Philosopher’s Stone"* from J.K. Rowling
 
 We have the next information...
 
@@ -23,6 +25,3 @@ Third, as you see clearly, all are different size, <br />
 Neither dwarf nor giant holds death in their insides; <br />
 Fourth, the second left and the second on the right <br />
 Are twins once you taste them, though different at first sight."
-
-To execute the code
-`$ dlv riddle7bottles.dlv`
